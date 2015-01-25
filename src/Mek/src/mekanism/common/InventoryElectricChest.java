@@ -30,14 +30,22 @@ public class InventoryElectricChest
   
   public void func_70295_k_()
   {
-    read();
-    ((IElectricChest)getItemStack().func_77973_b()).setOpen(getItemStack(), true);
+	  //Added NPE check and casting check
+	  if(getItemStack() != null && getItemStack().func_77973_b() instanceof IElectricChest)
+	  {
+		  read();
+		  ((IElectricChest)getItemStack().func_77973_b()).setOpen(getItemStack(), true);
+	  }
   }
   
   public void func_70305_f()
   {
-    write();
-    ((IElectricChest)getItemStack().func_77973_b()).setOpen(getItemStack(), false);
+	  //Added NPE check and casting check
+	  if(getItemStack() != null && getItemStack().func_77973_b() instanceof IElectricChest)
+	  {
+		  write();
+		  ((IElectricChest)getItemStack().func_77973_b()).setOpen(getItemStack(), false);
+	  }
   }
   
   public void write()
