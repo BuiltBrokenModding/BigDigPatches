@@ -30,6 +30,7 @@ public class ExHongSu extends ZhaPin
 {
 	private int MAX_TAKE_BLOCKS = 5;
 	private int max_range = 35;
+	private int timer = 600;
 
 	public ExHongSu(String name, int ID, int tier)
 	{
@@ -39,6 +40,7 @@ public class ExHongSu extends ZhaPin
 		this.isMobile = ZhuYaoBase.CONFIGURATION.get("general", "Redmatter_movement_allowed", true).getBoolean(true);
 		this.max_range = ZhuYaoBase.CONFIGURATION.get("general", "Redmatter_range", this.max_range).getInt(this.max_range);
 		this.MAX_TAKE_BLOCKS = ZhuYaoBase.CONFIGURATION.get("general", "Redmatter_max_edits_per_tick", this.MAX_TAKE_BLOCKS).getInt(this.MAX_TAKE_BLOCKS);		
+		this.timer = ZhuYaoBase.CONFIGURATION.get("general", "Redmatter_timer_seconds", this.MAX_TAKE_BLOCKS).getInt(this.timer);	
 		ZhuYaoBase.CONFIGURATION.save();
 	}
 
@@ -51,9 +53,13 @@ public class ExHongSu extends ZhaPin
 	}
 
 	public boolean doBaoZha(World worldObj, Vector3 position, Entity explosionSource, int explosionMetadata, int callCount)
-	{
+	{		
 		if (!worldObj.field_72995_K)
 		{
+			if(callCount >= (timer * 20))
+			{
+				return false;
+			}
 			int takenBlocks = 0;
 			boolean exit = false;
 			for (int r = 1; r < getRadius(); r++)
